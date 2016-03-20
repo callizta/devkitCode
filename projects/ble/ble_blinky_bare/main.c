@@ -38,7 +38,7 @@
 
 #define LEDBUTTON_BUTTON1               BSP_BUTTON_1
 
-#define GPIOTE_CHANNEL_NUMBER           (7UL)
+#define GPIOTE_CHANNEL_NUMBER           (0)
 																					
 // -- PWM defines
 // Sampling reate
@@ -102,7 +102,11 @@ void PWM0_IRQHandler(void)
 
 void GPIOTE_IRQHandlerMine(void)
 {	
-	nrf_gpio_pin_toggle(LED_MINE_B);	
+	if (NRF_GPIOTE->EVENTS_IN[GPIOTE_CHANNEL_NUMBER] == 1)
+	{
+		NRF_GPIOTE->EVENTS_IN[GPIOTE_CHANNEL_NUMBER] = 0;
+		nrf_gpio_pin_toggle(LED_MINE_B);
+	}
 }
 
 // PWM general init
