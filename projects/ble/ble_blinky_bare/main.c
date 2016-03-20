@@ -58,6 +58,7 @@ int16_t buf[] = {(1 << 15) | 1500 , (1 << 15) | 15000}; // Inverse polarity (bit
 int16_t buf1[] = {(1 << 15) | 15000};
 int16_t buf2[] = {1250, 1250};
 
+uint16_t buffer[SINE_BUFFER_SIZE];
 uint16_t buffer0[SINE_BUFFER_SIZE];
 uint16_t buffer1[SINE_BUFFER_SIZE];
 
@@ -74,6 +75,7 @@ void makeSine(bool bufferIndex)
 	//uint16_t frequency = SINE_GENERATOR_FREQ;
 	for (int n = 0; n < SINE_BUFFER_SIZE; n++)
 	{
+		buffer[n] = (uint16_t) (offset + (amplitude * sin((2 * 3.14 * n * frequency) / sampleRate)));
 		if (!bufferIndex ) buffer0[n] = (uint16_t) (offset + (amplitude * sin((2 * 3.14 * n * frequency) / sampleRate)));
 		else               buffer1[n] = (uint16_t) (offset + (amplitude * sin((2 * 3.14 * n * frequency) / sampleRate)));
 	}
@@ -87,14 +89,14 @@ void PWM0_IRQHandler(void)
 		NRF_PWM0->EVENTS_SEQEND[0] = 0;
 		nrf_gpio_pin_toggle(LED_MINE_A);
 		//makeSine(false);		
-		frequency++;
+		//frequency++;
 	}
 	if (NRF_PWM0->EVENTS_SEQEND[1] == 1)
 	{
 		NRF_PWM0->EVENTS_SEQEND[1] = 0;
 		nrf_gpio_pin_toggle(LED_MINE_A);
 		//makeSine(true);		
-		frequency++;
+		//frequency++;
 	}
 }
 
@@ -164,9 +166,9 @@ static void cfg_pwm1(void)
   NRF_PWM1->LOOP        = (PWM_LOOP_CNT_Disabled << PWM_LOOP_CNT_Pos);  
   NRF_PWM1->COUNTERTOP  = 8000; // 400HZ
 	
-	NRF_PWM1->SEQ[0].CNT = ((sizeof(buffer0) / sizeof(uint16_t)) << PWM_SEQ_CNT_CNT_Pos); 
+	NRF_PWM1->SEQ[0].CNT = ((sizeof(buffer) / sizeof(uint16_t)) << PWM_SEQ_CNT_CNT_Pos); 
   NRF_PWM1->SEQ[0].ENDDELAY = 0;
-	NRF_PWM1->SEQ[0].PTR = (uint32_t)&buffer0[0];		// anders' code
+	NRF_PWM1->SEQ[0].PTR = (uint32_t)&buffer[0];		// anders' code
   NRF_PWM1->SEQ[0].REFRESH = 0;
 
 	NRF_PWM1->SHORTS = 0;
@@ -202,7 +204,7 @@ static void playPwm(uint8_t note)
 	switch (note){
 		case 5: 
 			//NRF_PWM0->TASKS_SEQSTART[0] = 1;	
-			makeSine(false);
+			//makeSine(false);
 			NRF_PWM0->TASKS_STOP = 1;	
 			buf2[0] = 1700;
 			NRF_PWM1->TASKS_SEQSTART[0] = 1;	
@@ -228,15 +230,15 @@ static void playA1(void)
 {
 	if(!soundPlaying)
 	{
-		//makeSine();
+		makeSine(true);
 
-		NRF_PWM0->SEQ[0].PTR = (uint32_t)&buffer0[0];
-		NRF_PWM0->SEQ[0].CNT = ((sizeof(buffer0) / sizeof(uint16_t)) << PWM_SEQ_CNT_CNT_Pos);
+		NRF_PWM0->SEQ[0].PTR = (uint32_t)&buffer[0];
+		NRF_PWM0->SEQ[0].CNT = ((sizeof(buffer) / sizeof(uint16_t)) << PWM_SEQ_CNT_CNT_Pos);
 		NRF_PWM0->SEQ[0].REFRESH = 0;
 		NRF_PWM0->SEQ[0].ENDDELAY = 0;
 
-		NRF_PWM0->SEQ[1].PTR = (uint32_t)&buffer1[0];
-		NRF_PWM0->SEQ[1].CNT = ((sizeof(buffer1) / sizeof(uint16_t)) << PWM_SEQ_CNT_CNT_Pos);
+		NRF_PWM0->SEQ[1].PTR = (uint32_t)&buffer[0];
+		NRF_PWM0->SEQ[1].CNT = ((sizeof(buffer) / sizeof(uint16_t)) << PWM_SEQ_CNT_CNT_Pos);
 		NRF_PWM0->SEQ[1].REFRESH = 0;
 		NRF_PWM0->SEQ[1].ENDDELAY = 0;
 		

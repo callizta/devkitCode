@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\_build\nrf52832_xxaa_s132.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\_build\nrf52832_xxaa_s132.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Sun Mar 20 16:31:11 2016
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Sun Mar 20 16:35:49 2016
 <BR><P>
 <H3>Maximum Stack Usage =        376 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-led_write_handler &rArr; playPwm &rArr; makeSine &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
+led_write_handler &rArr; playA1 &rArr; makeSine &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 <P>
 <H3>
 Mutually Recursive functions
@@ -528,7 +528,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOTE_IRQHandler
 </UL>
 
-<P><STRONG><a name="[27]"></a>PWM0_IRQHandler</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, main.o(i.PWM0_IRQHandler))
+<P><STRONG><a name="[27]"></a>PWM0_IRQHandler</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, main.o(i.PWM0_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = PWM0_IRQHandler &rArr; nrf_gpio_pin_toggle
 </UL>
 <BR>[Calls]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_gpio_pin_toggle
@@ -942,7 +942,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[e9]"></a>makeSine</STRONG> (Thumb, 396 bytes, Stack size 112 bytes, main.o(i.makeSine))
+<P><STRONG><a name="[e9]"></a>makeSine</STRONG> (Thumb, 546 bytes, Stack size 112 bytes, main.o(i.makeSine))
 <BR><BR>[Stack]<UL><LI>Max Depth = 352<LI>Call Chain = makeSine &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
@@ -955,7 +955,7 @@ Global Symbols
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prepare_for_pwm
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;playPwm
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;playA1
 </UL>
 
 <P><STRONG><a name="[f3]"></a>nrf_drv_common_irq_enable</STRONG> (Thumb, 84 bytes, Stack size 16 bytes, nrf_drv_common.o(i.nrf_drv_common_irq_enable))
@@ -1192,7 +1192,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[3a]"></a>led_write_handler</STRONG> (Thumb, 110 bytes, Stack size 16 bytes, main.o(i.led_write_handler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 376<LI>Call Chain = led_write_handler &rArr; playPwm &rArr; makeSine &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
+<BR><BR>[Stack]<UL><LI>Max Depth = 376<LI>Call Chain = led_write_handler &rArr; playA1 &rArr; makeSine &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;playPwm
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;playA1
@@ -1252,16 +1252,16 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.conn_params_init)
 </UL>
-<P><STRONG><a name="[df]"></a>playA1</STRONG> (Thumb, 86 bytes, Stack size 0 bytes, main.o(i.playA1))
-<BR><BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_write_handler
-</UL>
-
-<P><STRONG><a name="[de]"></a>playPwm</STRONG> (Thumb, 94 bytes, Stack size 8 bytes, main.o(i.playPwm))
-<BR><BR>[Stack]<UL><LI>Max Depth = 360<LI>Call Chain = playPwm &rArr; makeSine &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[df]"></a>playA1</STRONG> (Thumb, 94 bytes, Stack size 8 bytes, main.o(i.playA1))
+<BR><BR>[Stack]<UL><LI>Max Depth = 360<LI>Call Chain = playA1 &rArr; makeSine &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;makeSine
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_write_handler
+</UL>
+
+<P><STRONG><a name="[de]"></a>playPwm</STRONG> (Thumb, 84 bytes, Stack size 0 bytes, main.o(i.playPwm))
+<BR><BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_write_handler
 </UL>
 
 <P><STRONG><a name="[e8]"></a>power_manage</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, main.o(i.power_manage))
