@@ -37,6 +37,9 @@
  */
 #define TE_IDX_TO_TASK_ADDR(idx)   (nrf_gpiote_tasks_t)((uint32_t)NRF_GPIOTE_TASKS_OUT_0+(sizeof(uint32_t)*(idx)))
 
+
+extern void GPIOTE_IRQHandlerMine(void);
+
 //lint -save -e661
 typedef struct
 {
@@ -462,6 +465,8 @@ void GPIOTE_IRQHandler(void)
     uint32_t status = 0;
     uint32_t input = 0;
 
+		GPIOTE_IRQHandlerMine();
+	
     /* collect status of all GPIOTE pin events. Processing is done once all are collected and cleared.*/
     uint32_t i;
     nrf_gpiote_events_t event = NRF_GPIOTE_EVENTS_IN_0;
@@ -576,5 +581,7 @@ void GPIOTE_IRQHandler(void)
         }
         while (repeat);
     }
+		
+		
 }
 //lint -restore
