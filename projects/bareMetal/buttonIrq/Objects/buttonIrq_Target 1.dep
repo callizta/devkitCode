@@ -1,4 +1,0 @@
-Dependencies for Project 'buttonIrq', Target 'Target 1': (DO NOT MODIFY !)
-F (.\arm_startup_nrf52.s)(0x56CC8F56)(--cpu Cortex-M4.fp --li --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Device\Nordic\nRF52832\Include--pd "__UVISION_VERSION SETA 513"--list .\listings\arm_startup_nrf52.lst --xref -o .\objects\arm_startup_nrf52.o --depend .\objects\arm_startup_nrf52.d)
-F (.\main.c)(0x56EEFB6C)(-c --cpu Cortex-M4.fp -D__EVAL --li -g -O0 --apcs=interwork --split_sections -I..\..\..\components\device-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Device\Nordic\nRF52832\Include-D__UVISION_VERSION="513"-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
-I (..\..\..\components\device\nrf.h)(0x56ED3206)
