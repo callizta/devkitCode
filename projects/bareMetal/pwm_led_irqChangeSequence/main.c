@@ -22,11 +22,12 @@ uint16_t currPwmMax = 0;                                            // current P
 // update currPwmMax, and wrap around
 void updateCurrPwmMax(void)
 {
-  currPwmMax = currPwmMax + 400;
+  currPwmMax = currPwmMax + 100;
   if (currPwmMax >= PWM0_COUNTERTOP) currPwmMax = 0;
 }
 
 // calculate fade-in values, max-val determines the maximum brightness (0 = maximum, COUNTERTOP = minimum)
+// the typecasting from uint16_t to float and back to uint16_t is required, otherwise we won't end up at the maximum value due to rounding errors
 void calcFadeIn (uint16_t max_val)
 {
   uint16_t n;
@@ -39,6 +40,7 @@ void calcFadeIn (uint16_t max_val)
 }
 
 // calculate fade-out values, max-val determines the maximum brightness (0 = maximum, COUNTERTOP = minimum)
+// the typecasting from uint16_t to float and back to uint16_t is required, otherwise we won't end up at the maximum value due to rounding errors
 void calcFadeOut (uint16_t max_val)
 {
   uint16_t n;
@@ -90,10 +92,7 @@ static void config_leds(void)
 }
 
 
-
-
 // -- generate linear fade in and fade out values
-// the typecasting from uint16_t to float and back to uint16_t is required, otherwise we won't end up at the maximum value due to rounding errors
 void makeLinRiseAndFall(uint16_t max_val)
 {
   calcFadeIn(max_val);
@@ -152,12 +151,12 @@ static void config_pwm()
 
 int main(void)
 {
-  // configure everything  
-  config_leds(); 
-  config_pwm();
-  
   // calculate initial fade-in/fade-out values
   makeLinRiseAndFall(currPwmMax);
+
+  // configure everything  
+  config_leds(); 
+  config_pwm();  
   
   // start PWM
   NRF_PWM0->TASKS_SEQSTART[0] = 1;
