@@ -11,7 +11,7 @@ void SWI0_EGU0_IRQHandler(void)
 	if (NRF_EGU0->EVENTS_TRIGGERED[0] == 1)
   {
 		NRF_EGU0->EVENTS_TRIGGERED[0] = 0;         // clear event register (otherwise IRQ keeps on firing)   
-    my_gpio_pin_toggle(MY_LED_2);                             // toggle MY_LED_3
+    my_gpio_pin_toggle(MY_LED_2);              // toggle MY_LED_2
 	}
 }
 
